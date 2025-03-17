@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="mb-3">Author List</h1>
+    {% if author_list %}
+      <ul class="list-group">
+        {% for author in author_list %}
+          <li class="list-group-item">
+            {{ author.first_name }} {{ author.last_name }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-danger">No authors available.</p>
+    {% endif %}
+  </div>
+{% endblock %}

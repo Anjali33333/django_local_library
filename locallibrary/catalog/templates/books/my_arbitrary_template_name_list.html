@@ -1,0 +1,36 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="mb-3">Book List</h1>
+    
+    {% if book_list %}
+      <ul class="list-group">
+        {% for book in book_list %}
+          <li class="list-group-item">
+            <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+            <span class="text-muted">by {{ book.author }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-danger">There are no books in the library.</p>
+    {% endif %}
+    
+    {% if is_paginated %}
+      <div class="pagination mt-3">
+        <span class="page-links">
+          {% if page_obj.has_previous %}
+            <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+          <span class="page-current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+          {% if page_obj.has_next %}
+            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+          {% endif %}
+        </span>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

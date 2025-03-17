@@ -1,0 +1,40 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Borrowed Books</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Due Back</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bookinst in bookinstance_list %}
+            <tr class="{% if bookinst.is_overdue %}text-danger{% endif %}">
+                <td>
+                    <a href="{% url 'book-detail' bookinst.book.pk %}">
+                        {{ bookinst.book.title }}
+                    </a>
+                </td>
+                <td>{{ bookinst.due_back }}</td>
+                <td>{{ bookinst.get_status_display }}</td>
+                <td>
+                    {% if perms.catalog.can_mark_returned %}
+                        <a href="{% url 'return-book' bookinst.id %}" class="btn btn-primary btn-sm">
+                            Mark as Returned
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">No borrowed books.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

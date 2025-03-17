@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Renew: {{ book_instance.book.title }}</h1>
+  
+  <p><strong>Borrower:</strong> {{ book_instance.borrower }}</p>
+  <p><strong>Current Due Date:</strong> {{ book_instance.due_back }}</p>
+  <p>Please enter a new return date:</p>
+
+  <form action="" method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      {{ form.as_p }}  <!-- Displays form fields with proper spacing -->
+    </div>
+
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <strong>Errors:</strong>
+        <ul>
+          {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary">Renew</button>
+    <a href="{% url 'index' %}" class="btn btn-secondary">Back to Home</a>
+  </form>
+{% endblock %}

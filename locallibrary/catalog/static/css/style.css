@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+ul {
+    list-style: none;
+}
+
+#logout-form {
+    display: inline;
+  }
+  #logout-form button {
+    padding: 0;
+    margin: 0;
+  }
+  
